@@ -67,7 +67,7 @@ public class Graph
     {
         // Mark all the vertices as not visited(By default
         // set as false)
-        boolean visited[] = new boolean[V];
+        boolean visited[] = new boolean[noOfVertices];
  
         // Create a queue for BFS
         LinkedList<Integer> queue = new LinkedList<Integer>();
@@ -80,24 +80,23 @@ public class Graph
         {
             // Dequeue a vertex from queue and print it
             s = queue.poll();
-            System.out.print(s+" ");
+            System.out.print(s + " : " + cityNameMapping.get(s));
  
             // Get all adjacent vertices of the dequeued vertex s
             // If a adjacent has not been visited, then mark it
             // visited and enqueue it
-            Iterator<Integer> i = adj[s].listIterator();
-            while (i.hasNext())
+            Iterator<Edge> iter = vertexList[s].listIterator();
+            while (iter.hasNext())
             {
-                int n = i.next();
-                if (!visited[n])
+                Edge n = iter.next();
+                if (!visited[n.getSecondVertex()])
                 {
-                    visited[n] = true;
-                    queue.add(n);
+                    visited[n.getSecondVertex()] = true;
+                    queue.add(n.getSecondVertex());
                 }
             }
         }
     }
- 
 
     // Driver method to
     public static void main(String args[])
