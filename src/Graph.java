@@ -1,20 +1,19 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Scanner;
+/*
+ * CZ2001 Algorithms - Year 2017/2018 Semester 1
+ * Lab 4 -  Application of BFS To Flight Scheduling
+ * 
+ * Group 1
+ * 
+ * */
+
+import java.util.*;
 
 public class Graph
 {
     private int noOfVertices;
     private ArrayList<Integer>[] vertexList;
     
-    // Hard-coded names of cities
+    // Names of Cities
 	List<String> cityList = Arrays.asList("Singapore","Kuala Lumpur", "Jakarta","Bangkok","Hanoi","Manila","Beijing","Pyongyang","Seoul","Taipei","Hong Kong","Tokyo","Sydney","Perth","New Zealand","Washington D.C.","New York","Los Angeles","Chicago","Texas","Seattle","Boston","London","Amsterdam","Berlin","Copenhagen","Moscow","Luxembourg","Paris","Rome","Stockholm","Vatican City","Toronto","Shanghai","Cairo","Istanbul","Dubai","Macau","Las Vegas","Prague","Barcelona","Venice","Budapest","Munich","Zurich","Chiang Mai","Vancouver","Melbourne","Rio De Janeiro","Frankfurt");
 	
     public Graph(int noOfCities)
@@ -112,7 +111,6 @@ public class Graph
 			}
 			System.out.println();
 		}
-		
 		return matrixToBeGenerated;
     }
     
@@ -193,15 +191,14 @@ public class Graph
     	
     	System.out.println("How many cities?");
     	
-    	// Create Graph of size c
     	sizeOfGraph = sc.nextInt();
     	sc.nextLine(); // Consume \n
+    	
+    	// Create Graph of size sizeOfGraph
         Graph g = new Graph(sizeOfGraph);
         
-        
-        /* Edges are represented in matrix form (i.e. matrix[a][b] where a and b are cities)
-         * This is where we insert each of these edges into the Graph
-         * */
+        // Edges are represented in matrix form (i.e. matrix[a][b] where a and b are cities)
+        // This is where we insert each of these edges into the Graph
         int[][] matrixOfEdges = g.generateMatrixOfEdges();
         int a, b;
         for (a = 0; a < sizeOfGraph; a++) {
@@ -215,7 +212,8 @@ public class Graph
         	}
         }
         
-        // For debug purposes. Used to display the graph visually.
+        // For debug purposes. Used to display the graph visually. Comes in two varieties: with city names, and without
+        // To include city names, do not pass in any arguments. To exclude city names, pass in true.
         g.printGraph(true);
         
         g.printCities(sizeOfGraph);
