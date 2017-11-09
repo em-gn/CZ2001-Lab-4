@@ -99,14 +99,40 @@ public class Graph
     // Driver method to
     public static void main(String args[])
     {
-        Graph g = new Graph(4);
- 
-        g.addEdge(0, 1);
-        g.addEdge(0, 2);
-        g.addEdge(1, 2);
-        g.addEdge(2, 0);
-        g.addEdge(2, 3);
-        g.addEdge(3, 3);
+    	int cities;
+    	int[] edges = new int[100];
+    	for (int i = 0;i<100;i++) {
+    		edges[i]=i;
+    	}
+    	Scanner sc = new Scanner(System.in);
+    	Random rand = new Random();
+    	System.out.println("How many cities?");
+    	cities = sc.nextInt();
+        Graph g = new Graph(cities);
+        
+        for (int i=0;i<cities;i++) {
+        	int paramOne = -1;
+        	int paramTwo = -1;
+        	int weight = rand.nextInt(99);
+        	//param 1
+        	while (paramOne == -1) {
+        		int index = rand.nextInt(99);
+        		if (edges[index]!=-1) {
+        			paramOne = edges[index];
+        			edges[index]=-1;
+        		}
+        	}
+        	//param 2
+        	while (paramTwo == -1) {
+        		int index = rand.nextInt(99);
+        		if (edges[index]!=-1) {
+        			paramTwo = edges[index];
+        			edges[index]=-1;
+        		}
+        	}
+        	
+        	g.addEdge(paramOne, paramTwo, weight);
+        }
  
         System.out.println("Following is Breadth First Traversal "+
                            "(starting from vertex 2)");
