@@ -11,12 +11,12 @@ public class Graph
     private int noOfVertices;
     private ArrayList<Integer>[] vertexList;
  
-    Graph(int noOfCities)
+    public Graph(int noOfCities)
     {
-    	noOfVertices = noOfCities;
-    	ArrayList<Integer> listOfConnectedVertices = new ArrayList<Integer>();
-        for (int i = 0; i < noOfCities; ++i) {
-        	vertexList[i] = listOfConnectedVertices;
+    	this.noOfVertices = noOfCities;
+    	vertexList = new ArrayList[noOfCities];
+        for (int i = 0; i < noOfVertices; i++) {
+        	vertexList[i] = new ArrayList<Integer>();
         }
     }
 
@@ -67,7 +67,7 @@ public class Graph
     public static void main(String args[])
     {
     	int c;
-    	List<String> cityList = Arrays.asList("city1", "city2", "city3"); //tbc, hardcoded
+    	List<String> cityList = Arrays.asList("Singapore","Kuala Lumpur", "Jakarta","Bangkok","Hanoi","Manila","Beijing","Pyongyang","Seoul","Taipei","Hong Kong","Tokyo","Sydney","Perth","New Zealand","Washington D.C.","New York","Los Angeles","Chicago","Texas","Seattle","Boston","London","Amsterdam","Berlin","Copenhagen","Moscow","Luxembourg","Paris","Rome","Stockholm","Vatican City","Toronto","Shanghai","Cairo","Istanbul","Dubai","Macau","Las Vegas","Prague","Barcelona","Venice","Budapest","Munich","Zurich","Chiang Mai","Vancouver","Melbourne","Rio De Janeiro","Frankfurt"); //tbc, hardcoded
     	
     	Scanner sc = new Scanner(System.in);
     	Random rand = new Random();
