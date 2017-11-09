@@ -139,12 +139,17 @@ public class Graph
         
         while (queue.size() != 0)
         {
-        	currentVertex = queue.poll();
-        	
         	if (currentVertex == destinationVertex) {
         		shortestPathFound = true;
         		break;
         	}
+        	
+        	currentVertex = queue.poll();
+        	
+    		//if (adjVertex == destinationVertex) {
+    		//	shortestPathFound = true;
+    		//	break;
+    		//}
         	
             // For all adjacent vertices (adjVertex) of the dequeued currentVertex:
             // If an adjVertex has not been visited, then mark it as visited and queue it
@@ -156,6 +161,7 @@ public class Graph
             		queue.add(adjVertex);
             		previousVertices.put(adjVertex, currentVertex);
             		if (adjVertex == destinationVertex) {
+            			currentVertex = adjVertex;
             			shortestPathFound = true;
             			break;
             		}
@@ -175,9 +181,11 @@ public class Graph
         	for (Integer cityIndex : pathToTrace) {
         		System.out.format("%2d : %s\n", cityIndex, cityList.get(cityIndex));
         	}
+        	System.out.println("\n=================================================================");
         }
         else {
         	System.out.println("\nPath not found\n");
+        	System.out.println("\n=================================================================");
         }
     }
 
@@ -212,18 +220,37 @@ public class Graph
         	}
         }
         
-        // For debug purposes. Used to display the graph visually. Comes in two varieties: with city names, and without
-        // To include city names, do not pass in any arguments. To exclude city names, pass in true.
-        g.printGraph(true);
-        
-        g.printCities(sizeOfGraph);
-        System.out.println("\nWhich city (vertex) to select as source? (please input the number associated with the city)");
-        source = sc.nextInt();
-        sc.nextLine(); // Consume \n
-        System.out.println("\nWhich city (vertex) to select as destination? (please input the number associated with the city)");
-        destination = sc.nextInt();
-        sc.nextLine(); // Consume \n
-        
-        g.BFS(source, destination);
+        boolean running = true;
+        while (running) {
+            // For debug purposes. Used to display the graph visually. Comes in two varieties: with city names, and without
+            // To include city names, do not pass in any arguments. To exclude city names, pass in true.
+            g.printGraph(true);
+            g.printCities(sizeOfGraph); // For user selection
+            System.out.println("\nWhich city (vertex) to select as source? (type -1 to quit)");
+            source = sc.nextInt();
+            sc.nextLine(); // Consume \n
+            if (source == -1) {
+            	break;
+            }
+            else if (source > sizeOfGraph-1) {
+            	System.out.println("Input not valid. Outside of valid range.");
+            	System.out.println("\n=================================================================");
+            	continue;
+            }
+            System.out.println("\nWhich city (vertex) to select as destination? (type -1 to quit)");
+            destination = sc.nextInt();
+            if (destination == -1) {
+            	break;
+            }
+            else if (destination > sizeOfGraph-1) {
+            	System.out.println("Input not valid. Outside of valid range.");
+            	System.out.println("\n=================================================================");
+            	continue;
+            }
+            sc.nextLine(); // Consume \n
+
+            g.BFS(source, destination);
+        }
+
     }
 }
