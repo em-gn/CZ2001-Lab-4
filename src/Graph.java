@@ -98,20 +98,48 @@ public class Graph
         }
     }
  
+
     // Driver method to
     public static void main(String args[])
     {
-    	int cities;
-    	int[] edges = new int[100];
-    	for (int i = 0;i<100;i++) {
-    		edges[i]=i;
-    	}
+    	int c;
+    	int numFlights;
+    	List<String> cityList = Arrays.asList("city1", "city2", "city3"); //tbc, hardcoded
+    	
     	Scanner sc = new Scanner(System.in);
     	Random rand = new Random();
     	System.out.println("How many cities?");
-    	cities = sc.nextInt();
-        Graph g = new Graph(cities);
+    	
+    	c = sc.nextInt();
+        Graph g = new Graph(c);
         
+        System.out.println("How many flights");
+        
+        
+        int[] combinationID = new int[c*(c^2-1)/2];
+        
+    	for (int i = 0;i<c*(c^2-1)/2;i++) {
+    		combinationID[i]=i;
+    	}
+        
+        //create list of cities used in this iteration
+        List<String> edgeList = new ArrayList<String>() {
+            {
+            	for (int i=0;i<c;i++) add(cityList.get(i));
+            }
+        };
+        
+        //create list of all combinations
+        List<String[]> pairs = new ArrayList<>();
+        for (int i = 0; i < edgeList.size(); ++i) {
+            for (int j = i + 1; j < edgeList.size(); ++j) {
+                pairs.add(new String[]{edgeList.get(i), edgeList.get(j)});
+            }
+        }
+        
+        for (int i=0;i<c;i++)
+        
+        /*
         for (int i=0;i<cities;i++) {
         	int paramOne = -1;
         	int paramTwo = -1;
@@ -132,8 +160,10 @@ public class Graph
         			edges[index]=-1;
         		}
         	}
+        	
         	g.addEdge(paramOne, paramTwo, weight);
         }
+        */
  
         System.out.println("Following is Breadth First Traversal "+
                            "(starting from vertex 2)");
