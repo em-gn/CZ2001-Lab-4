@@ -118,7 +118,7 @@ public class Graph
         int[] combinationID = new int[c*(c^2-1)/2];
         
     	for (int i = 0;i<c*(c^2-1)/2;i++) {
-    		combinationID[i]=i;
+    		combinationID[i]=1;
     	}
         
         //create list of cities used in this iteration
@@ -136,33 +136,22 @@ public class Graph
             }
         }
         
-        for (int i=0;i<c;i++)
-        
-        /*
-        for (int i=0;i<cities;i++) {
-        	int paramOne = -1;
-        	int paramTwo = -1;
-        	int weight = rand.nextInt(99);
-        	//param 1
-        	while (paramOne == -1) {
-        		int index = rand.nextInt(99);
-        		if (edges[index]!=-1) {
-        			paramOne = edges[index];
-        			edges[index]=-1;
+        //inserting edges into graph
+        for (int i = c*2;i<combinationID.length; i++) {
+        	String param1 = null;
+        	String param2 = null;
+        	while (param1 == null) {
+        		if (combinationID[rand.nextInt(combinationID.length)] == 1) {
+        			String[] temp = pairs.get(i);
+        			param1 = temp[0];
+        			param2 = temp[1];
+        			combinationID[i] = -1;
         		}
         	}
-        	//param 2
-        	while (paramTwo == -1) {
-        		int index = rand.nextInt(99);
-        		if (edges[index]!=-1) {
-        			paramTwo = edges[index];
-        			edges[index]=-1;
-        		}
-        	}
-        	
-        	g.addEdge(paramOne, paramTwo, weight);
+        	g.addEdge(param1, param2, rand.nextInt());
         }
-        */
+        
+
  
         System.out.println("Following is Breadth First Traversal "+
                            "(starting from vertex 2)");
