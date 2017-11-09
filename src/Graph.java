@@ -8,7 +8,25 @@ import java.util.*;
 public class Graph
 {
     private int V;   // No. of vertices
-    private LinkedList<Integer> adj[]; //Adjacency Lists
+    private LinkedList<Edge> vertexList[];
+    private ArrayList<String> cityNameMapping[];
+    
+    /*
+     * Edge
+     * int first vertex
+     * int second vertex
+     * int weight
+     * 
+     * LinkedList<Edge> adj[]
+     * [0] -> [][][]
+     * [1] -> [][][]
+     * [2] -> [][][]
+     * [3] -> [][][]
+     * [4] -> [][][]
+     * [5] -> [][][]
+     * [6] -> [][][]
+     * 
+     * */
  
     // Constructor
     Graph(int v)
@@ -19,10 +37,27 @@ public class Graph
             adj[i] = new LinkedList();
     }
  
-    // Function to add an edge into the graph
-    void addEdge(int v,int w)
+
+    void addVertex(String[] listOfCityNames) {
+    	
+    	for (String cityName : listOfCityNames) {
+        	// Maps first_vertex to cityNameMapping such that cityNameMapping[index] returns the city name for that vertex
+        	cityNameMapping.set(first_vertex, )
+    	}
+
+    }
+    
+    
+    /*
+     * @param first_vertex  : refers to the index of the element in cityNameMapping
+     * @param second_vertex : refers to the index of the element in cityNameMapping
+     * @param weight        : weight of the edge
+     * 
+     * */
+    void addEdge(int first_vertex,int second_vertex, int weight)
     {
-        adj[v].add(w);
+    	Edge tempEdge = new Edge (first_vertex, second_vertex, weight);
+    	vertexList[first_vertex].add(tempEdge);
     }
  
     // prints BFS traversal from a given source s
