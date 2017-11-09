@@ -63,57 +63,58 @@ public class Graph
         }
     }
 
-    // Driver method to
+ // Driver method to
     public static void main(String args[])
     {
     	int c;
-    	int numFlights;
     	List<String> cityList = Arrays.asList("city1", "city2", "city3"); //tbc, hardcoded
     	
     	Scanner sc = new Scanner(System.in);
     	Random rand = new Random();
     	System.out.println("How many cities?");
     	
+    	//creat graph of size c
     	c = sc.nextInt();
         Graph g = new Graph(c);
         
-        System.out.println("How many flights");
         
+        //init arraylist of pairs
+        List<Pair> combinationList = new ArrayList<Pair>();
         
-        int[] combinationID = new int[c*(c^2-1)/2];
+        //create list of all combinations for 0-c
+        int i = 0;
+        int j = i + 1;
+        while(true) {
+        	combinationList.add(new Pair(i,j));
+        	j++;
+        	if(j >= c) {
+        		i++;
+        		j = i + 1;
+        		}
+        	if(i >= c - 1) {
+        		break;
+        		}
+        	}
         
-    	for (int i = 0;i<c*(c^2-1)/2;i++) {
-    		combinationID[i]=1;
+        //combinationID list to check if that combination has been used before (no duplicates)
+        int[] combinationID = new int[combinationList.size()];
+    	for (int index = 0;index<combinationList.size();index++) {
+    		combinationID[index]=1;
     	}
         
-        //create list of cities used in this iteration
-        List<String> edgeList = new ArrayList<String>() {
-            {
-            	for (int i=0;i<c;i++) add(cityList.get(i));
-            }
-        };
-        
-        //create list of all combinations
-        List<String[]> pairs = new ArrayList<>();
-        for (int i = 0; i < edgeList.size(); ++i) {
-            for (int j = i + 1; j < edgeList.size(); ++j) {
-                pairs.add(new String[]{edgeList.get(i), edgeList.get(j)});
-            }
-        }
-        
         //inserting edges into graph
-        for (int i = c*2;i<combinationID.length; i++) {
-        	String param1 = null;
-        	String param2 = null;
-        	while (param1 == null) {
+        for (int index = 0;index<combinationID.length*2; index++) {
+        	int param1 = -1;
+        	int param2 = -1;
+        	while (param1 == -1) {
         		if (combinationID[rand.nextInt(combinationID.length)] == 1) {
-        			String[] temp = pairs.get(i);
-        			param1 = temp[0];
-        			param2 = temp[1];
+        			Pair temp = combinationList.get(i);
+        			param1 = temp.x;
+        			param2 = temp.y;
         			combinationID[i] = -1;
         		}
         	}
-        	g.addEdge(param1, param2, rand.nextInt());
+        	g.addEdge(param1, param2);
         }
         
 
