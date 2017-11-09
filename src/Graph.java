@@ -1,98 +1,63 @@
-// Java program to print BFS traversal from a given source vertex.
-// BFS(int s) traverses vertices reachable from s.
-import java.io.*;
-import java.util.*;
- 
-// This class represents a directed graph using adjacency list
-// representation
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+
 public class Graph
 {
     private int noOfVertices;
-    private ArrayList<Edge>[] vertexList;
-    private ArrayList<String> cityNameMapping;
-    
-    /*
-     * Edge
-     * int first vertex
-     * int second vertex
-     * int weight
-     * 
-     * ArrayList<Edge>[] vertexList
-     * [0] -> [][][]
-     * [1] -> [][][] -> ArrayList<Edge> e.g. (1,0,1), (1,1,1), (1,2,1) etc
-     * [2] -> [][][]
-     * [3] -> [][][]
-     * [4] -> [][][]
-     * [5] -> [][][]
-     * [6] -> [][][]
-     * 
-     * */
+    private ArrayList<Integer>[] vertexList;
  
-    /*
-     * Constructor:
-     * Initialises the Graph based on the noOfCities provided
-     * */
     Graph(int noOfCities)
     {
     	noOfVertices = noOfCities;
-    	ArrayList<Edge> tempListOfEdges = new ArrayList<Edge>();
+    	ArrayList<Integer> listOfConnectedVertices = new ArrayList<Integer>();
         for (int i = 0; i < noOfCities; ++i) {
-        	vertexList[i] = tempListOfEdges;
+        	vertexList[i] = listOfConnectedVertices;
         }
     }
-    
-    /*
-     * Maps first_vertex to cityNameMapping such that cityNameMapping[index] returns the city name for that vertex
-     * 
-     * @param vertex   : the integer that the city name is going to be associated with
-     * @param cityName : the city name to be associated with the integer
-     * */
-    void addVertex(int vertex, String cityName) {
-    	cityNameMapping.set(vertex, cityName);
-    }
-    
-    /*
-     * @param first_vertex  : refers to the index of the element in cityNameMapping
-     * @param second_vertex : refers to the index of the element in cityNameMapping
-     * @param weight        : weight of the edge
-     * */
-    void addEdge(int first_vertex,int second_vertex, int weight)
+
+    void addEdge(int firstVertex,int secondVertex)
     {
-    	Edge tempEdge = new Edge (first_vertex, second_vertex, weight);
-    	vertexList[first_vertex].add(tempEdge);
+    	vertexList[firstVertex].add(secondVertex);
     }
  
-    // prints BFS traversal from a given source s
-    void BFS(int s)
+    /*
+     * BFS Algorithm
+     * */
+    void BFS(int sourceVertex)
     {
-        // Mark all the vertices as not visited(By default
-        // set as false)
+        /*
+         * By default, all vertices start off as not visited (i.e. false)
+         * */
         boolean visited[] = new boolean[noOfVertices];
  
-        // Create a queue for BFS
+        // Queue for BFS
         LinkedList<Integer> queue = new LinkedList<Integer>();
  
-        // Mark the current node as visited and enqueue it
-        visited[s]=true;
-        queue.add(s);
+        // Visit sourceVertex and mark it in visited as true
+        visited[sourceVertex]=true;
+        queue.add(sourceVertex);
  
         while (queue.size() != 0)
         {
-            // Dequeue a vertex from queue and print it
-            s = queue.poll();
-            System.out.print(s + " : " + cityNameMapping.get(s));
+        	/* Dequeue a vertex from the queue to check
+        	 * */
+        	sourceVertex = queue.poll();
+            System.out.print(sourceVertex + " ");
  
-            // Get all adjacent vertices of the dequeued vertex s
-            // If a adjacent has not been visited, then mark it
-            // visited and enqueue it
-            Iterator<Edge> iter = vertexList[s].listIterator();
-            while (iter.hasNext())
-            {
-                Edge n = iter.next();
-                if (!visited[n.getSecondVertex()])
-                {
-                    visited[n.getSecondVertex()] = true;
-                    queue.add(n.getSecondVertex());
+            /* For all adjacent vertices (adjVertex) of the dequeued sourceVertex:
+             * If an adjVertex has not been visited, then mark it as visited and queue it
+             */ 
+            Iterator<Integer> iter = vertexList[sourceVertex].listIterator();
+            while (iter.hasNext()) {
+            	Integer adjVertex = iter.next();
+            	if (!visited[adjVertex]){
+            		visited[adjVertex] = true;
+            		queue.add(adjVertex);
                 }
             }
         }
