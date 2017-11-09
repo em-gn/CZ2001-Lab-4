@@ -7,9 +7,9 @@ import java.util.*;
 // representation
 public class Graph
 {
-    private int V;   // No. of vertices
-    private LinkedList<Edge> vertexList[];
-    private ArrayList<String> cityNameMapping[];
+    private int noOfVertices;
+    private ArrayList<Edge>[] vertexList;
+    private ArrayList<String> cityNameMapping;
     
     /*
      * Edge
@@ -17,9 +17,9 @@ public class Graph
      * int second vertex
      * int weight
      * 
-     * LinkedList<Edge> adj[]
+     * ArrayList<Edge>[] vertexList
      * [0] -> [][][]
-     * [1] -> [][][]
+     * [1] -> [][][] -> ArrayList<Edge> e.g. (1,0,1), (1,1,1), (1,2,1) etc
      * [2] -> [][][]
      * [3] -> [][][]
      * [4] -> [][][]
@@ -28,31 +28,33 @@ public class Graph
      * 
      * */
  
-    // Constructor
-    Graph(int v)
+    /*
+     * Constructor:
+     * Initialises the Graph based on the noOfCities provided
+     * */
+    Graph(int noOfCities)
     {
-        V = v;
-        adj = new LinkedList[v];
-        for (int i=0; i<v; ++i)
-            adj[i] = new LinkedList();
-    }
- 
-
-    void addVertex(String[] listOfCityNames) {
-    	
-    	for (String cityName : listOfCityNames) {
-        	// Maps first_vertex to cityNameMapping such that cityNameMapping[index] returns the city name for that vertex
-        	cityNameMapping.set(first_vertex, )
-    	}
-
+    	noOfVertices = noOfCities;
+    	ArrayList<Edge> tempListOfEdges = new ArrayList<Edge>();
+        for (int i = 0; i < noOfCities; ++i) {
+        	vertexList[i] = tempListOfEdges;
+        }
     }
     
+    /*
+     * Maps first_vertex to cityNameMapping such that cityNameMapping[index] returns the city name for that vertex
+     * 
+     * @param vertex   : the integer that the city name is going to be associated with
+     * @param cityName : the city name to be associated with the integer
+     * */
+    void addVertex(int vertex, String cityName) {
+    	cityNameMapping.set(vertex, cityName);
+    }
     
     /*
      * @param first_vertex  : refers to the index of the element in cityNameMapping
      * @param second_vertex : refers to the index of the element in cityNameMapping
      * @param weight        : weight of the edge
-     * 
      * */
     void addEdge(int first_vertex,int second_vertex, int weight)
     {
@@ -130,7 +132,6 @@ public class Graph
         			edges[index]=-1;
         		}
         	}
-        	
         	g.addEdge(paramOne, paramTwo, weight);
         }
  
