@@ -193,6 +193,9 @@ public class Graph
     public static void main(String args[])
     {
     	Scanner sc = new Scanner(System.in);
+    	double start_time = 0;
+	double end_time = 0;
+	double time_duration = 0;
     	
     	int sizeOfGraph;
     	int source, destination;
@@ -229,6 +232,9 @@ public class Graph
             System.out.println("\nWhich city (vertex) to select as source? (type -1 to quit)");
             source = sc.nextInt();
             sc.nextLine(); // Consume \n
+            
+            
+            
             if (source == -1) {
             	break;
             }
@@ -248,9 +254,14 @@ public class Graph
             	continue;
             }
             sc.nextLine(); // Consume \n
-
+            
+            start_time = System.nanoTime();
             g.BFS(source, destination);
+            end_time = System.nanoTime();
+            time_duration = (end_time - start_time)/1000000.0;
+            
+			System.out.println("\nTotal execution time: " + (time_duration) + "ms");
+			System.out.println("\nNumber of Cities: " + sizeOfGraph);
         }
-
     }
 }
