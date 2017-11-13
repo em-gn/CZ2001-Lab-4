@@ -12,6 +12,7 @@ public class Graph
 {
     private int noOfVertices;
     private ArrayList<Integer>[] vertexList;
+    private static int numFlightsTaken = 0;
     
     // Names of Cities
 	List<String> cityList = Arrays.asList("Singapore","Kuala Lumpur", "Jakarta","Bangkok","Hanoi","Manila","Beijing","Pyongyang","Seoul","Taipei","Hong Kong","Tokyo","Sydney","Perth","New Zealand","Washington D.C.","New York","Los Angeles","Chicago","Texas","Seattle","Boston","London","Amsterdam","Berlin","Copenhagen","Moscow","Luxembourg","Paris","Rome","Stockholm","Vatican City","Toronto","Shanghai","Cairo","Istanbul","Dubai","Macau","Las Vegas","Prague","Barcelona","Venice","Budapest","Munich","Zurich","Chiang Mai","Vancouver","Melbourne","Rio De Janeiro","Frankfurt");
@@ -178,9 +179,11 @@ public class Graph
         	}
         	Collections.reverse(pathToTrace);
         	System.out.println("\nNow printing trace of shortest path:\n");
+        	numFlightsTaken = 0;
         	for (Integer cityIndex : pathToTrace) {
         		System.out.format("%2d : %s\n", cityIndex, cityList.get(cityIndex));
-        	}
+        		numFlightsTaken++;
+        		}
         	System.out.println("\n=================================================================");
         }
         else {
@@ -233,8 +236,6 @@ public class Graph
             source = sc.nextInt();
             sc.nextLine(); // Consume \n
             
-            
-            
             if (source == -1) {
             	break;
             }
@@ -262,6 +263,7 @@ public class Graph
             
 			System.out.println("\nTotal execution time: " + (time_duration) + "ms");
 			System.out.println("\nNumber of Cities: " + sizeOfGraph);
+			System.out.println("\nNumber of Flights taken to fly from source to destination: " + (numFlightsTaken - 1));
         }
     }
 }
